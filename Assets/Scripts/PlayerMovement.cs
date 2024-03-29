@@ -53,5 +53,11 @@ public class PlayerMovement : MonoBehaviour
             isFacingLeft = !isFacingLeft;
             //do animations
         }
+
+    }
+
+    public bool IsFacingLeft()
+    {
+        return isFacingLeft;
     }
 }
