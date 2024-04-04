@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public static PlayerMovement instance;
+
     Rigidbody2D rb;
 
     public float moveSpeedLeft = 40f;
@@ -12,7 +14,12 @@ public class PlayerMovement : MonoBehaviour
     public float maxSpeed = 150f;
     public float defaultSpeed = 40f;
 
-    private bool isFacingLeft;
+    public bool isFacingLeft;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -52,12 +59,8 @@ public class PlayerMovement : MonoBehaviour
         {
             isFacingLeft = !isFacingLeft;
             //do animations
+            Debug.Log("currently facing left: " + isFacingLeft);
         }
 
-    }
-
-    public bool IsFacingLeft()
-    {
-        return isFacingLeft;
     }
 }
