@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-
-    public class GameController : MonoBehaviour {
+public class GameController : MonoBehaviour {
     public static GameController instance;
 
     //Outlets
     public Transform[] spawnPoints;
     public GameObject[] obstaclePrefabs;
 
-    public float timeElasped;
+    public float timeElapsed;
     void Awake() {
         instance = this;
     }
@@ -24,5 +23,5 @@ using TMPro;
     //float decreaseDelayOverTime = maxObstacleDelay - ((maxObstacleDelay - minObstacleDelay)/ 30f * timeElapsed);
     //obstacleDelay = Mathf.Clamp(decreaseDelayOverTime, minObstacleDelay, maxObstacleDelay);
 
-}
+    }
 }
