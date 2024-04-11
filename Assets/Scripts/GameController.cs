@@ -16,6 +16,11 @@ public class GameController : MonoBehaviour {
     public float minCameraDelay = 3f;
     public float cameraDelay;
 
+    public float maxObstacleDelay = 8f;
+    public float minObstacleDelay = 1f;
+
+    public float obstacleDelay;
+
     public float timeElapsed;
     void Awake() {
         instance = this;
@@ -24,6 +29,7 @@ public class GameController : MonoBehaviour {
     private void Start()
     {
         StartCoroutine("CameraSpawnTimer");
+        StartCoroutine("ObstacleSpawnTimer");
     }
 
     void Update() {
@@ -34,6 +40,19 @@ public class GameController : MonoBehaviour {
         float decreaseDelayOverTime = maxCameraDelay - ((maxCameraDelay - minCameraDelay) / 30f * timeElapsed);
         cameraDelay = Mathf.Clamp(decreaseDelayOverTime, minCameraDelay, maxCameraDelay);
 
+        //Obstacle Delay
+        float decreaseDelayOverTimeObstacle = maxObstacleDelay - ((maxObstacleDelay - minObstacleDelay) / 30f * timeElapsed);
+        obstacleDelay = Mathf.Clamp(decreaseDelayOverTimeObstacle, minObstacleDelay, maxObstacleDelay);
+
+    }
+
+    void SpawnObstacle() {
+        int randomObstacleSpawnIndex = Random.Range(0, obstacleSpawnPoints.Length);
+        Transform randomObstacleSpawnPoint = obstacleSpawnPoints[randomObstacleSpawnIndex];
+        int randomObstacleIndex = Random.Range(0, obstaclePrefabs.Length);
+        GameObject randomObstaclePrefab = obstaclePrefabs[randomObstacleIndex];
+
+        Instantiate(randomObstaclePrefab, randomObstacleSpawnPoint.position, Quaternion.identity);
     }
 
     void SpawnCamera()
@@ -50,5 +69,11 @@ public class GameController : MonoBehaviour {
         SpawnCamera();
 
         StartCoroutine("CameraSpawnTimer");
+    }
+
+    IEnumerator ObstacleSpawnTimer() {
+        yield return new WaitForSeconds(obstacleDelay);
+        SpawnObstacle();
+        StartCoroutine("ObstacleSpawnTimer");
     }
 }

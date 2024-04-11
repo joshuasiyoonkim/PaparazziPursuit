@@ -251,11 +251,14 @@ MonoBehaviour:
   - {fileID: 1677247447}
   - {fileID: 904677259}
   obstaclePrefabs:
-  - {fileID: 0}
+  - {fileID: 4887061081383126884, guid: b5e3e6686ae654afc80b12727a7be92b, type: 3}
   cameraPrefab: {fileID: 7108020705350217911, guid: f28281de4bebd4ce4b25e9195e483e51, type: 3}
   maxCameraDelay: 10
   minCameraDelay: 3
   cameraDelay: 0
+  maxObstacleDelay: 8
+  minObstacleDelay: 1
+  obstacleDelay: 0
   timeElapsed: 0
 --- !u!4 &889133110
 Transform:
