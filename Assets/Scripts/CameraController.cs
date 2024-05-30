@@ -15,6 +15,7 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (transform.position.y <= playerYPos)
         {
             Vector2 rayDirection = PlayerMovement.instance.isFacingLeft ? Vector2.left : Vector2.right;
@@ -24,5 +25,11 @@ public class CameraController : MonoBehaviour
                 Debug.Log("Player loses!");
             }
         }
+    }
+
+    private void OnBecameInvisible()
+    {
+        Destroy(gameObject);
+        GameController.isCameraShown = false;
     }
 }

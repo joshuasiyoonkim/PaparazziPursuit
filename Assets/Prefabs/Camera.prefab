@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 4787869962200170092}
   - component: {fileID: 5565435366316776793}
   - component: {fileID: 4682346907993507993}
-  - component: {fileID: 451037336337945066}
   - component: {fileID: 4033298815670370301}
+  - component: {fileID: 3016953471336802756}
   m_Layer: 6
   m_Name: Camera
   m_TagString: Untagged
@@ -105,6 +105,9 @@ MonoBehaviour:
   cameraLayer:
     serializedVersion: 2
     m_Bits: 64
+  cameraMaxSpeed: 10
+  cameraMinSpeed: 1
+  timeElapsed: 0
 --- !u!61 &4682346907993507993
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -150,18 +153,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &451037336337945066
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7108020705350217911}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09034c5f583e94fb889eb0d7be5078b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!50 &4033298815670370301
 Rigidbody2D:
   serializedVersion: 4
@@ -189,3 +180,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &3016953471336802756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7108020705350217911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09034c5f583e94fb889eb0d7be5078b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  minSpeed: 10
+  maxSpeed: 50
+  timeElapsed: 0

@@ -5,6 +5,8 @@ using TMPro;
 
 public class GameController : MonoBehaviour {
     public static GameController instance;
+    public static bool isCameraShown = false;
+    public static float speed;
 
     //Outlets
     public Transform[] obstacleSpawnPoints;
@@ -12,16 +14,25 @@ public class GameController : MonoBehaviour {
     public GameObject[] obstaclePrefabs;
     public GameObject cameraPrefab;
 
-    public float maxCameraDelay = 10f;
-    public float minCameraDelay = 3f;
+    public float maxCameraDelay = 5f;
+    public float minCameraDelay = 1f;
     public float cameraDelay;
 
-    public float maxObstacleDelay = 8f;
-    public float minObstacleDelay = 1f;
+    public float maxObstacleDelay = 3f;
+    public float minObstacleDelay = 0.5f;
 
     public float obstacleDelay;
 
-    public float timeElapsed;
+    public float timeElapsed = 0f;
+
+    //this is for obstacles
+    public float minSpeed = 5f;
+    public float maxSpeed = 10f;
+
+
+    public float delay = 30f;
+    public float speedDelay = 45f;
+
     void Awake() {
         instance = this;
     }
@@ -30,6 +41,7 @@ public class GameController : MonoBehaviour {
     {
         StartCoroutine("CameraSpawnTimer");
         StartCoroutine("ObstacleSpawnTimer");
+        isCameraShown = false;
     }
 
     void Update() {
@@ -37,13 +49,19 @@ public class GameController : MonoBehaviour {
         timeElapsed += Time.deltaTime;
 
         //Computer Asteroid Delay
-        float decreaseDelayOverTime = maxCameraDelay - ((maxCameraDelay - minCameraDelay) / 30f * timeElapsed);
+        float decreaseDelayOverTime = maxCameraDelay - ((maxCameraDelay - minCameraDelay) / delay * timeElapsed);
+        //Debug.Log("decreaseDelayOverTime: " + decreaseDelayOverTime);
         cameraDelay = Mathf.Clamp(decreaseDelayOverTime, minCameraDelay, maxCameraDelay);
 
         //Obstacle Delay
-        float decreaseDelayOverTimeObstacle = maxObstacleDelay - ((maxObstacleDelay - minObstacleDelay) / 30f * timeElapsed);
+        float decreaseDelayOverTimeObstacle = maxObstacleDelay - ((maxObstacleDelay - minObstacleDelay) / delay * timeElapsed);
         obstacleDelay = Mathf.Clamp(decreaseDelayOverTimeObstacle, minObstacleDelay, maxObstacleDelay);
 
+
+        //calculate obstacle speed and increase over time
+        //this gets used in obstacle.cs
+        float increaseTime = minSpeed + ((maxSpeed - minSpeed) / speedDelay * timeElapsed);
+        speed = Mathf.Clamp(increaseTime, minSpeed, maxSpeed);
     }
 
     void SpawnObstacle() {
@@ -64,16 +82,28 @@ public class GameController : MonoBehaviour {
 
     IEnumerator CameraSpawnTimer()
     {
-        yield return new WaitForSeconds(cameraDelay);
-
-        SpawnCamera();
-
-        StartCoroutine("CameraSpawnTimer");
+        while(true)
+        {
+            if (!isCameraShown)
+            {
+                isCameraShown = true;
+                yield return new WaitForSeconds(cameraDelay);
+                SpawnCamera();
+            }
+            else
+            {
+                Debug.Log("camera is already being shown");
+                yield return null;
+            }
+        }
     }
 
     IEnumerator ObstacleSpawnTimer() {
-        yield return new WaitForSeconds(obstacleDelay);
-        SpawnObstacle();
-        StartCoroutine("ObstacleSpawnTimer");
+        while(true)
+        {
+            yield return new WaitForSeconds(obstacleDelay);
+            SpawnObstacle();
+        }
+        //StartCoroutine("ObstacleSpawnTimer");
     }
 }
