@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     public static PlayerMovement instance;
 
     Rigidbody2D rb;
+    Animator _animator;
 
     public float moveSpeedLeft = 40f;
     public float moveSpeedRight = 40f;
@@ -27,6 +28,8 @@ public class PlayerMovement : MonoBehaviour
     {
         isFacingLeft = true;
         rb = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
+        _animator.SetBool("isFacingLeft", isFacingLeft);
     }
 
     // Update is called once per frame
@@ -60,6 +63,7 @@ public class PlayerMovement : MonoBehaviour
         {
             isFacingLeft = !isFacingLeft;
             //do animations
+            _animator.SetBool("isFacingLeft", isFacingLeft);
             Debug.Log("currently facing left: " + isFacingLeft);
         }
 
