@@ -354,14 +354,14 @@ MonoBehaviour:
   maxCameraDelay: 5
   minCameraDelay: 1
   cameraDelay: 0
-  maxObstacleDelay: 3
+  maxObstacleDelay: 2
   minObstacleDelay: 0.5
   obstacleDelay: 0
   timeElapsed: 0
   minSpeed: 5
-  maxSpeed: 10
-  delay: 30
-  speedDelay: 45
+  maxSpeed: 40
+  delay: 600
+  speedDelay: 600
 --- !u!4 &889133110
 Transform:
   m_ObjectHideFlags: 0
@@ -612,7 +612,7 @@ Transform:
   m_GameObject: {fileID: 989402592}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.97, y: 5.5, z: 0}
+  m_LocalPosition: {x: -1.26, y: 5.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -643,7 +643,7 @@ Transform:
   m_GameObject: {fileID: 1187400809}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.97, y: 5.5, z: 0}
+  m_LocalPosition: {x: 1.13, y: 5.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

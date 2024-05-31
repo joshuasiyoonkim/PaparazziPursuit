@@ -16,7 +16,7 @@ public class obstalce : MonoBehaviour
     void Update()
     {
 
-        Debug.Log("speed: " + GameController.speed);
+        //Debug.Log("speed: " + GameController.speed);
         _rb.velocity = Vector2.down * GameController.speed;
     }
 

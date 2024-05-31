@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CameraController : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class CameraController : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(player.position, rayDirection, Mathf.Infinity, cameraLayer);
             if (hit.collider != null && hit.collider.gameObject == gameObject)
             {
-                Debug.Log("Player loses!");
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
         }
     }
