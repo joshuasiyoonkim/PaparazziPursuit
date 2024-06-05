@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ScrollingBackground : MonoBehaviour
 {
-    public float minScrollSpeed = -2f;
-    public float maxScrollSpeed = -15f;
+    public float minScrollSpeed = -2f; // Negative for upward scrolling
+    public float maxScrollSpeed = -15f; // Negative for upward scrolling
     public float delay = 30f;
     public float scrollSpeed;
     public float offset;
@@ -16,20 +15,19 @@ public class ScrollingBackground : MonoBehaviour
     private void Start()
     {
         mat = GetComponent<Renderer>().material;
+        offset = 0f; // Initialize offset
     }
 
     void Update()
     {
-
         timeElapsed += Time.deltaTime;
 
-        //calculate speed and increase over time
+        // Calculate speed and increase over time
         float increaseScrollSpeed = minScrollSpeed + ((maxScrollSpeed - minScrollSpeed) / delay * timeElapsed);
-        scrollSpeed = Mathf.Clamp(increaseScrollSpeed, maxScrollSpeed, minScrollSpeed);
+        scrollSpeed = Mathf.Clamp(increaseScrollSpeed, maxScrollSpeed, minScrollSpeed); // Adjusted clamp range
 
-
-        offset += (Time.deltaTime * scrollSpeed) / 10f;
+        // Adjust offset for upward scrolling
+        offset -= Time.deltaTime * scrollSpeed / 10f;
         mat.SetTextureOffset("_MainTex", new Vector2(0, offset));
     }
-
 }
