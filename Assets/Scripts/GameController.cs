@@ -74,11 +74,24 @@ public class GameController : MonoBehaviour {
     }
 
     void SpawnCamera()
-    {
-        int randomSpawnIndex = Random.Range(0, cameraSpawnPoints.Length);
-        Transform randomSpawnPoint = cameraSpawnPoints[randomSpawnIndex];
-        Instantiate(cameraPrefab, randomSpawnPoint.position, Quaternion.identity);
-    }
+        {
+            int randomSpawnIndex = Random.Range(0, cameraSpawnPoints.Length);
+            Transform randomSpawnPoint = cameraSpawnPoints[randomSpawnIndex];
+            GameObject spawnedCamera = Instantiate(cameraPrefab, randomSpawnPoint.position, Quaternion.identity);
+
+            // Assuming you have two spawn points, index 0 is the left side, and index 1 is the right side.
+            if (randomSpawnIndex == 1) // Right side
+            {
+                // Rotate the camera to face left
+                spawnedCamera.transform.rotation = Quaternion.Euler(0, 180, 0);
+            }
+            else // Left side
+            {
+                // No need to rotate, as it already looks to the left
+                spawnedCamera.transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
+        }
+
 
     IEnumerator CameraSpawnTimer()
     {
