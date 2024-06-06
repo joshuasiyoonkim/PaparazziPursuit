@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class PlayerMovement : MonoBehaviour
 {
     public static PlayerMovement instance;
+    public UIController uiController;
 
     Rigidbody2D rb;
     Animator _animator;
@@ -71,6 +72,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnBecameInvisible()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        uiController.GameOver();
     }
 }

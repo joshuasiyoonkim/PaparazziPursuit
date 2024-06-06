@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class CameraController : MonoBehaviour
 {
+    public UIController uiController;
+
     public Transform player;
     public float playerYPos = -1f;
     public LayerMask cameraLayer;
@@ -12,6 +14,7 @@ public class CameraController : MonoBehaviour
     private void Start()
     {
         player = FindObjectOfType<PlayerMovement>().transform;
+        uiController = FindObjectOfType<UIController>();
     }
     // Update is called once per frame
     void Update()
@@ -23,7 +26,8 @@ public class CameraController : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(player.position, rayDirection, Mathf.Infinity, cameraLayer);
             if (hit.collider != null && hit.collider.gameObject == gameObject)
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                //player loses, show game over screen
+                uiController.GameOver();
             }
         }
     }
