@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5565435366316776793}
   - component: {fileID: 4682346907993507993}
   - component: {fileID: 4033298815670370301}
-  - component: {fileID: 3016953471336802756}
+  - component: {fileID: -2190991022079975452}
   m_Layer: 6
   m_Name: Camera
   m_TagString: Untagged
@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b55d2dd07453849f79ce5a0eb41bbb99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiController: {fileID: 0}
   player: {fileID: 0}
   playerYPos: -1
   cameraLayer:
@@ -177,7 +178,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &3016953471336802756
+--- !u!114 &-2190991022079975452
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -186,6 +187,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7108020705350217911}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09034c5f583e94fb889eb0d7be5078b9, type: 3}
+  m_Script: {fileID: 11500000, guid: 32946e29df04143a6bba2f7fda31e30a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minScale: 0.5
+  maxScale: 1.5
+  topScreenY: 10
+  bottomScreenY: -10
