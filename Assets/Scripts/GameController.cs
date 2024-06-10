@@ -14,6 +14,10 @@ public class GameController : MonoBehaviour {
     public GameObject[] obstaclePrefabs;
     public GameObject cameraPrefab;
 
+    //for tracking player score
+    public TMP_Text textScore;
+    public float score;
+
     public float maxCameraDelay = 5f;
     public float minCameraDelay = 1f;
     public float cameraDelay;
@@ -42,6 +46,7 @@ public class GameController : MonoBehaviour {
         StartCoroutine("CameraSpawnTimer");
         StartCoroutine("ObstacleSpawnTimer");
         isCameraShown = false;
+        score = 0f;
     }
 
     void Update() {
@@ -62,6 +67,17 @@ public class GameController : MonoBehaviour {
         //this gets used in obstacle.cs
         float increaseTime = minSpeed + ((maxSpeed - minSpeed) / speedDelay * timeElapsed);
         speed = Mathf.Clamp(increaseTime, minSpeed, maxSpeed);
+
+        if (Time.timeScale > 0)
+        {
+            score += (Time.deltaTime * 100);
+            UpdateDisplay();
+        }
+    }
+
+    void UpdateDisplay()
+    {
+        textScore.text = Mathf.FloorToInt(score).ToString();
     }
 
     void SpawnObstacle() {
@@ -118,5 +134,11 @@ public class GameController : MonoBehaviour {
             SpawnObstacle();
         }
         //StartCoroutine("ObstacleSpawnTimer");
+    }
+
+    public void EarnPoints(int pointAmount)
+    {
+        score += pointAmount;
+        UpdateDisplay();
     }
 }
