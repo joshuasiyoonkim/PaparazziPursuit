@@ -29,8 +29,8 @@ public class CameraController : MonoBehaviour
             if (hit.collider != null && hit.collider.gameObject == gameObject)
             {
                 //player loses, show game over screen
-                uiController.GameOver();
                 gameController.checkHighScore();
+                uiController.GameOver();
             }
         }
     }

@@ -150,6 +150,7 @@ public class GameController : MonoBehaviour {
         if(score > highScore)
         {
             PlayerPrefs.SetFloat("HighScore", score);
+            PlayerPrefs.Save();
             //UIController.highScoreText.text = Mathf.FloorToInt(score).ToString();
         }
     }
