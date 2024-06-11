@@ -18,7 +18,7 @@ public class GameController : MonoBehaviour {
     public TMP_Text textScore;
     public static float score = 0f;
 
-    public float maxCameraDelay = 5f;
+    public float maxCameraDelay = 4f;
     public float minCameraDelay = 0.5f; // Lowered min delay for faster spawns
     public float cameraDelay;
 
@@ -105,6 +105,7 @@ public class GameController : MonoBehaviour {
             // No need to rotate, as it already looks to the left
             spawnedCamera.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
+        isCameraShown = false;
     }
 
     IEnumerator CameraSpawnTimer()
@@ -116,7 +117,6 @@ public class GameController : MonoBehaviour {
                 isCameraShown = true;
                 yield return new WaitForSeconds(cameraDelay);
                 SpawnCamera();
-                isCameraShown = false;
             }
             else
             {

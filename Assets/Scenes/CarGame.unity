@@ -1731,17 +1731,17 @@ MonoBehaviour:
   - {fileID: 4887061081383126884, guid: b5e3e6686ae654afc80b12727a7be92b, type: 3}
   cameraPrefab: {fileID: 7108020705350217911, guid: f28281de4bebd4ce4b25e9195e483e51, type: 3}
   textScore: {fileID: 1437576081}
-  maxCameraDelay: 5
-  minCameraDelay: 1
+  maxCameraDelay: 4
+  minCameraDelay: 0.5
   cameraDelay: 0
   maxObstacleDelay: 2
   minObstacleDelay: 0.5
   obstacleDelay: 0
-  timeElapsed: 90
+  timeElapsed: 0
   minSpeed: 5
   maxSpeed: 40
-  delay: 600
-  speedDelay: 600
+  delay: 100
+  speedDelay: 250
 --- !u!4 &889133110
 Transform:
   m_ObjectHideFlags: 0

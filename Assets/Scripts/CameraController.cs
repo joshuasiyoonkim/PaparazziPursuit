@@ -38,6 +38,5 @@ public class CameraController : MonoBehaviour
     private void OnBecameInvisible()
     {
         Destroy(gameObject);
-        GameController.isCameraShown = false;
     }
 }
