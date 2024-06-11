@@ -8,34 +8,32 @@ public class GameController : MonoBehaviour {
     public static bool isCameraShown = false;
     public static float speed;
 
-    //Outlets
+    // Outlets
     public Transform[] obstacleSpawnPoints;
     public Transform[] cameraSpawnPoints;
     public GameObject[] obstaclePrefabs;
     public GameObject cameraPrefab;
 
-    //for tracking player score
+    // For tracking player score
     public TMP_Text textScore;
     public static float score = 0f;
 
     public float maxCameraDelay = 5f;
-    public float minCameraDelay = 1f;
+    public float minCameraDelay = 0.5f; // Lowered min delay for faster spawns
     public float cameraDelay;
 
     public float maxObstacleDelay = 3f;
-    public float minObstacleDelay = 0.5f;
-
+    public float minObstacleDelay = 0.2f; // Lowered min delay for faster spawns
     public float obstacleDelay;
 
     public float timeElapsed = 0f;
 
-    //this is for obstacles
+    // This is for obstacles
     public float minSpeed = 5f;
-    public float maxSpeed = 10f;
+    public float maxSpeed = 15f; // Increased max speed for more challenge
 
-
-    public float delay = 30f;
-    public float speedDelay = 45f;
+    public float delay = 20f; // Lowered delay for quicker difficulty increase
+    public float speedDelay = 30f; // Lowered speed delay for quicker speed increase
 
     private float highScore = 0f;
 
@@ -53,21 +51,19 @@ public class GameController : MonoBehaviour {
     }
 
     void Update() {
-        //Increment passage of time for each frame of the game
+        // Increment passage of time for each frame of the game
         timeElapsed += Time.deltaTime;
 
-        //Computer Asteroid Delay
+        // Compute Camera Delay
         float decreaseDelayOverTime = maxCameraDelay - ((maxCameraDelay - minCameraDelay) / delay * timeElapsed);
-        //Debug.Log("decreaseDelayOverTime: " + decreaseDelayOverTime);
         cameraDelay = Mathf.Clamp(decreaseDelayOverTime, minCameraDelay, maxCameraDelay);
 
-        //Obstacle Delay
+        // Obstacle Delay
         float decreaseDelayOverTimeObstacle = maxObstacleDelay - ((maxObstacleDelay - minObstacleDelay) / delay * timeElapsed);
         obstacleDelay = Mathf.Clamp(decreaseDelayOverTimeObstacle, minObstacleDelay, maxObstacleDelay);
 
-
-        //calculate obstacle speed and increase over time
-        //this gets used in obstacle.cs
+        // Calculate obstacle speed and increase over time
+        // This gets used in obstacle.cs
         float increaseTime = minSpeed + ((maxSpeed - minSpeed) / speedDelay * timeElapsed);
         speed = Mathf.Clamp(increaseTime, minSpeed, maxSpeed);
 
@@ -93,24 +89,23 @@ public class GameController : MonoBehaviour {
     }
 
     void SpawnCamera()
+    {
+        int randomSpawnIndex = Random.Range(0, cameraSpawnPoints.Length);
+        Transform randomSpawnPoint = cameraSpawnPoints[randomSpawnIndex];
+        GameObject spawnedCamera = Instantiate(cameraPrefab, randomSpawnPoint.position, Quaternion.identity);
+
+        // Assuming you have two spawn points, index 0 is the left side, and index 1 is the right side.
+        if (randomSpawnIndex == 1) // Right side
         {
-            int randomSpawnIndex = Random.Range(0, cameraSpawnPoints.Length);
-            Transform randomSpawnPoint = cameraSpawnPoints[randomSpawnIndex];
-            GameObject spawnedCamera = Instantiate(cameraPrefab, randomSpawnPoint.position, Quaternion.identity);
-
-            // Assuming you have two spawn points, index 0 is the left side, and index 1 is the right side.
-            if (randomSpawnIndex == 1) // Right side
-            {
-                // Rotate the camera to face left
-                spawnedCamera.transform.rotation = Quaternion.Euler(0, 180, 0);
-            }
-            else // Left side
-            {
-                // No need to rotate, as it already looks to the left
-                spawnedCamera.transform.rotation = Quaternion.Euler(0, 0, 0);
-            }
+            // Rotate the camera to face left
+            spawnedCamera.transform.rotation = Quaternion.Euler(0, 180, 0);
         }
-
+        else // Left side
+        {
+            // No need to rotate, as it already looks to the left
+            spawnedCamera.transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+    }
 
     IEnumerator CameraSpawnTimer()
     {
@@ -121,22 +116,24 @@ public class GameController : MonoBehaviour {
                 isCameraShown = true;
                 yield return new WaitForSeconds(cameraDelay);
                 SpawnCamera();
+                isCameraShown = false;
             }
             else
             {
                 Debug.Log("camera is already being shown");
                 yield return null;
             }
+            // After spawning, wait for a progressively shorter delay before next spawn
+            yield return new WaitForSeconds(Random.Range(minCameraDelay, cameraDelay));
         }
     }
 
     IEnumerator ObstacleSpawnTimer() {
         while(true)
         {
-            yield return new WaitForSeconds(obstacleDelay);
+            yield return new WaitForSeconds(Random.Range(minObstacleDelay, obstacleDelay));
             SpawnObstacle();
         }
-        //StartCoroutine("ObstacleSpawnTimer");
     }
 
     public void EarnPoints(int pointAmount)

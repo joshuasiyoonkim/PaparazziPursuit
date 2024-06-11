@@ -1737,7 +1737,7 @@ MonoBehaviour:
   maxObstacleDelay: 2
   minObstacleDelay: 0.5
   obstacleDelay: 0
-  timeElapsed: 0
+  timeElapsed: 90
   minSpeed: 5
   maxSpeed: 40
   delay: 600
@@ -3177,7 +3177,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 773eaeebce711418fb42847ec6ad0eec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameController: {fileID: 0}
   highScoreText: {fileID: 320530603}
   scoreText: {fileID: 718785772}
   startScreen: {fileID: 184653173}
