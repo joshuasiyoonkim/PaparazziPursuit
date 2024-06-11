@@ -2,9 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class UIController : MonoBehaviour
 {
+    public TMP_Text highScoreText;
+    public TMP_Text scoreText;
+
+
     //true = started, false = ended
     public static string gameStatus;
 
@@ -29,6 +34,7 @@ public class UIController : MonoBehaviour
             gameOverScreen.SetActive(false);
             Time.timeScale = 0;
         }
+        highScoreText.text = Mathf.FloorToInt(PlayerPrefs.GetFloat("HighScore", 0f)).ToString();
     }
 
     void Update()
@@ -40,6 +46,8 @@ public class UIController : MonoBehaviour
                 PauseGame();
             }
         }
+
+        scoreText.text = Mathf.FloorToInt(GameController.score).ToString();
     }
 
 

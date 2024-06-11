@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class CameraController : MonoBehaviour
 {
     public UIController uiController;
+    public GameController gameController;
 
     public Transform player;
     public float playerYPos = -1f;
@@ -15,6 +16,7 @@ public class CameraController : MonoBehaviour
     {
         player = FindObjectOfType<PlayerMovement>().transform;
         uiController = FindObjectOfType<UIController>();
+        gameController = FindObjectOfType<GameController>();
     }
     // Update is called once per frame
     void Update()
@@ -28,6 +30,7 @@ public class CameraController : MonoBehaviour
             {
                 //player loses, show game over screen
                 uiController.GameOver();
+                gameController.checkHighScore();
             }
         }
     }

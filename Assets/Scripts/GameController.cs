@@ -16,7 +16,7 @@ public class GameController : MonoBehaviour {
 
     //for tracking player score
     public TMP_Text textScore;
-    public float score;
+    public static float score = 0f;
 
     public float maxCameraDelay = 5f;
     public float minCameraDelay = 1f;
@@ -37,6 +37,8 @@ public class GameController : MonoBehaviour {
     public float delay = 30f;
     public float speedDelay = 45f;
 
+    private float highScore = 0f;
+
     void Awake() {
         instance = this;
     }
@@ -47,6 +49,7 @@ public class GameController : MonoBehaviour {
         StartCoroutine("ObstacleSpawnTimer");
         isCameraShown = false;
         score = 0f;
+        highScore = PlayerPrefs.GetFloat("HighScore", 0f);
     }
 
     void Update() {
@@ -140,5 +143,14 @@ public class GameController : MonoBehaviour {
     {
         score += pointAmount;
         UpdateDisplay();
+    }
+
+    public void checkHighScore()
+    {
+        if(score > highScore)
+        {
+            PlayerPrefs.SetFloat("HighScore", score);
+            //UIController.highScoreText.text = Mathf.FloorToInt(score).ToString();
+        }
     }
 }
