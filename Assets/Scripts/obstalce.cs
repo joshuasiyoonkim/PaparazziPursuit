@@ -18,14 +18,14 @@ public class Obstacle : MonoBehaviour
     public float switchInterval = 1f; // Time interval between lane switches
     public float laneSwitchSpeed = 10f; // Speed of switching lanes
     private float switchTimer;
-    private float[] lanePositions = { -3f, -1f, 1f, 3f }; // X positions of lanes
+    private float[] lanePositions = { -3.8f, -1.3f, 1.2f, 3.8f }; // X positions of lanes
     private int currentLane;
 
     // Methods
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
-        currentLane = Random.Range(0, lanePositions.Length); // Start in a random lane
+        currentLane = System.Array.IndexOf(lanePositions, transform.position.x);
         switchTimer = switchInterval;
         
         // Set the initial scale
@@ -50,8 +50,21 @@ public class Obstacle : MonoBehaviour
         switchTimer -= Time.deltaTime;
         if (switchTimer <= 0)
         {
-            // Switch to a new lane
-            currentLane = Random.Range(0, lanePositions.Length);
+            //if on the left most side, change lanes to right
+            if(lanePositions[currentLane] == -3.8f)
+            {
+                currentLane = Random.Range(0, 2);
+            } else if(lanePositions[currentLane] == 3.8f)
+            {
+                currentLane = Random.Range(lanePositions.Length - 1, lanePositions.Length);
+            } else
+            {
+                // Switch to a new lane
+                int newLane = Random.Range(0, 2) * 2 - 1;
+                currentLane = currentLane + newLane;
+            }
+
+            //currentLane = Random.Range(0, lanePositions.Length);
             switchTimer = switchInterval;
         }
 

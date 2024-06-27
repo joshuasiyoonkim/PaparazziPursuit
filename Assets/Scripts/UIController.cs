@@ -86,7 +86,7 @@ public class UIController : MonoBehaviour
 
     public void GameOver()
     {
-        highScoreText.text = Mathf.FloorToInt(PlayerPrefs.GetFloat("HighScore", 0f)).ToString();
+        highScoreText.text = "High Score: " + Mathf.FloorToInt(PlayerPrefs.GetFloat("HighScore", 0f)).ToString();
         gameOverScreen.SetActive(true);
         Time.timeScale = 0;
     }

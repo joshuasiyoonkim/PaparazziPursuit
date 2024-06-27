@@ -5,7 +5,7 @@ using UnityEngine;
 public class ScrollingBackground : MonoBehaviour
 {
     public float minScrollSpeed = -2f; // Negative for upward scrolling
-    public float maxScrollSpeed = -15f; // Negative for upward scrolling
+    public float maxScrollSpeed = -10f; // Negative for upward scrolling
     public float delay = 30f;
     public float scrollSpeed;
     public float offset;
