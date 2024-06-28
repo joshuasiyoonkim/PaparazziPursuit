@@ -23,8 +23,10 @@ public class ScrollingBackground : MonoBehaviour
         timeElapsed += Time.deltaTime;
 
         // Calculate speed and increase over time
-        float increaseScrollSpeed = minScrollSpeed + ((maxScrollSpeed - minScrollSpeed) / delay * timeElapsed);
-        scrollSpeed = Mathf.Clamp(increaseScrollSpeed, maxScrollSpeed, minScrollSpeed); // Adjusted clamp range
+        //float increaseScrollSpeed = minScrollSpeed + ((maxScrollSpeed - minScrollSpeed) / delay * timeElapsed);
+        //scrollSpeed = Mathf.Clamp(increaseScrollSpeed, maxScrollSpeed, minScrollSpeed); // Adjusted clamp range
+
+        scrollSpeed = -GameController.speed;
 
         // Adjust offset for upward scrolling
         offset -= Time.deltaTime * scrollSpeed / 10f;

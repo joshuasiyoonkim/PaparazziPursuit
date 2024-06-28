@@ -51,12 +51,12 @@ public class Obstacle : MonoBehaviour
         if (switchTimer <= 0)
         {
             //if on the left most side, change lanes to right
-            if(lanePositions[currentLane] == -3.8f)
+            if(currentLane == 0)
             {
                 currentLane = Random.Range(0, 2);
-            } else if(lanePositions[currentLane] == 3.8f)
+            } else if(currentLane == (lanePositions.Length - 1))
             {
-                currentLane = Random.Range(lanePositions.Length - 1, lanePositions.Length);
+                currentLane = Random.Range(lanePositions.Length - 2, lanePositions.Length);
             } else
             {
                 // Switch to a new lane
@@ -76,5 +76,14 @@ public class Obstacle : MonoBehaviour
     void OnBecameInvisible()
     {
         Destroy(gameObject);
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            // Call the OnPlayerHit method on the PlayerRecovery script
+            collision.gameObject.GetComponent<PlayerRecovery>().OnPlayerHit();
+        }
     }
 }
