@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiController: {fileID: 0}
+  gameController: {fileID: 0}
   player: {fileID: 0}
   playerYPos: -1
   cameraLayer:
@@ -190,7 +191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32946e29df04143a6bba2f7fda31e30a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minScale: 0.5
-  maxScale: 1.5
+  minScale: 1
+  maxScale: 1
   topScreenY: 10
   bottomScreenY: -10
