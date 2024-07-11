@@ -2076,11 +2076,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minScrollSpeed: -10
-  maxScrollSpeed: -100
-  delay: 30
+  maxScrollSpeed: -30
+  delay: 10
   scrollSpeed: -10
   offset: 0
-  timeElapsed: 0
 --- !u!1 &946912914
 GameObject:
   m_ObjectHideFlags: 0
@@ -2768,7 +2767,7 @@ GameObject:
   - component: {fileID: 1437576082}
   - component: {fileID: 1437576081}
   m_Layer: 5
-  m_Name: Score
+  m_Name: GameScore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3348,11 +3347,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highScoreText: {fileID: 320530603}
   scoreText: {fileID: 718785772}
+  gameScore: {fileID: 1437576081}
   startScreen: {fileID: 184653173}
   pauseScreen: {fileID: 586169629}
   gameOverScreen: {fileID: 2104383992}
-  newspaperImage: {fileID: 0}
-  uiElements: {fileID: 0}
+  newspaperImage: {fileID: 253159192}
+  uiElements: {fileID: 1679337861}
 --- !u!1 &2104383992
 GameObject:
   m_ObjectHideFlags: 0

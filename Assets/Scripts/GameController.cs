@@ -144,6 +144,7 @@ public class GameController : MonoBehaviour {
 
     public void checkHighScore()
     {
+        UIController.finalScore = score;
         if(score > highScore)
         {
             PlayerPrefs.SetFloat("HighScore", score);

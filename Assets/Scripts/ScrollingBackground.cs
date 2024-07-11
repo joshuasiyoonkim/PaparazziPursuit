@@ -6,7 +6,7 @@ public class ScrollingBackground : MonoBehaviour
 {
     public float minScrollSpeed = -10f; // Higher negative value for faster initial speed
     public float maxScrollSpeed = -30f; // Negative for upward scrolling
-    public float delay = 60f;
+    public float delay = 10f;
     public float scrollSpeed;
     public float offset;
     private Material mat;
@@ -25,10 +25,10 @@ public class ScrollingBackground : MonoBehaviour
 
         // Calculate speed and increase over time
         float increaseScrollSpeed = minScrollSpeed + ((maxScrollSpeed - minScrollSpeed) / delay * timeElapsed);
-        scrollSpeed = Mathf.Clamp(increaseScrollSpeed, maxScrollSpeed, minScrollSpeed); // Adjusted clamp range
+        scrollSpeed = Mathf.Clamp(increaseScrollSpeed, minScrollSpeed, maxScrollSpeed); // Adjusted clamp range
 
         // Adjust offset for upward scrolling
-        offset -= Time.deltaTime * scrollSpeed / 10f;
+        offset -= Time.deltaTime * scrollSpeed / 5f;
         mat.SetTextureOffset("_MainTex", new Vector2(0, offset));
     }
 }

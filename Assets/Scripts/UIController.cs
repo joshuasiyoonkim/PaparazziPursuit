@@ -7,11 +7,17 @@ using TMPro;
 public class UIController : MonoBehaviour
 {
     public TMP_Text highScoreText;
+
+    //this is for game over screen
     public TMP_Text scoreText;
+
+    //this is for the game score
+    public TMP_Text gameScore;
 
 
     //true = started, false = ended
     public static string gameStatus;
+    public static float finalScore;
 
     public GameObject startScreen;
     public GameObject pauseScreen;
@@ -51,7 +57,7 @@ public class UIController : MonoBehaviour
             }
         }
 
-        scoreText.text = Mathf.FloorToInt(GameController.score).ToString();
+        gameScore.text = Mathf.FloorToInt(GameController.score).ToString();
     }
 
 
@@ -90,7 +96,9 @@ public class UIController : MonoBehaviour
 
     public void GameOver()
     {
+        scoreText.text = Mathf.FloorToInt(finalScore).ToString();
         highScoreText.text = "High Score: " + Mathf.FloorToInt(PlayerPrefs.GetFloat("HighScore", 0f)).ToString();
+        gameScore.gameObject.SetActive(false);
         gameOverScreen.SetActive(true);
 
         Animator animator = newspaperImage.GetComponent<Animator>();
@@ -99,12 +107,11 @@ public class UIController : MonoBehaviour
             animator.SetTrigger("ShowNewspaper");
             StartCoroutine(WaitForAnimation(animator, "NewspaperAnimator"));
         }
-        Time.timeScale = 0;
     }
 
     private IEnumerator WaitForAnimation(Animator animator, string animationName)
     {
-        while(!animator.GetCurrentAnimatorStateInfo(0).IsName(animationName))
+        while (!animator.GetCurrentAnimatorStateInfo(0).IsName(animationName))
         {
             yield return null;
         }
@@ -114,5 +121,6 @@ public class UIController : MonoBehaviour
         }
 
         uiElements.SetActive(true);
+        Time.timeScale = 0;
     }
 }
