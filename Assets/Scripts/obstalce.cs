@@ -7,6 +7,10 @@ public class Obstacle : MonoBehaviour
     // Outlet
     Rigidbody2D _rb;
 
+    // Sprite randomization
+    public Sprite[] obstacleSprites; // Array to store different obstacle sprites
+    private SpriteRenderer spriteRenderer;
+
     // Scaling variables
     public float initialScale = 0.5f; // Initial scale when the obstacle spawns
     public float minScale = 0.5f; // Minimum scale at the top of the screen
@@ -25,6 +29,11 @@ public class Obstacle : MonoBehaviour
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        // Randomize the sprite
+        RandomizeSprite();
+
         currentLane = System.Array.IndexOf(lanePositions, transform.position.x);
         switchTimer = switchInterval;
         
@@ -50,27 +59,37 @@ public class Obstacle : MonoBehaviour
         switchTimer -= Time.deltaTime;
         if (switchTimer <= 0)
         {
-            //if on the left most side, change lanes to right
+            // If on the leftmost side, change lanes to the right
             if(currentLane == 0)
             {
                 currentLane = Random.Range(0, 2);
-            } else if(currentLane == (lanePositions.Length - 1))
+            } 
+            else if(currentLane == (lanePositions.Length - 1))
             {
                 currentLane = Random.Range(lanePositions.Length - 2, lanePositions.Length);
-            } else
+            } 
+            else
             {
                 // Switch to a new lane
                 int newLane = Random.Range(0, 2) * 2 - 1;
                 currentLane = currentLane + newLane;
             }
 
-            //currentLane = Random.Range(0, lanePositions.Length);
             switchTimer = switchInterval;
         }
 
         // Smoothly move towards the current lane position
         Vector2 targetPosition = new Vector2(lanePositions[currentLane], transform.position.y);
         transform.position = Vector2.MoveTowards(transform.position, targetPosition, laneSwitchSpeed * Time.deltaTime);
+    }
+
+    void RandomizeSprite()
+    {
+        if (obstacleSprites.Length > 0)
+        {
+            int randomIndex = Random.Range(0, obstacleSprites.Length);
+            spriteRenderer.sprite = obstacleSprites[randomIndex];
+        }
     }
 
     void OnBecameInvisible()
