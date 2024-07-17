@@ -5,38 +5,50 @@ using UnityEngine.UI;
 
 public class NumberFont : MonoBehaviour
 {
-    public Image[] numberImages;
-    public Sprite[] numberSprites;
+    public Sprite[] numberSprites;  // Array of sprites for digits 0-9
+    public GameObject digitPrefab;  // Prefab with a SpriteRenderer component
+    public float spacing = 0.5f;    // Spacing between digits
+    public Vector3 offset = new Vector3(0, 5, 0);  // Offset from the camera
+
+    private List<GameObject> digits = new List<GameObject>();
+
+    void LateUpdate()
+    {
+        // Position the score display relative to the camera
+        transform.position = Camera.main.transform.position + offset;
+        transform.rotation = Camera.main.transform.rotation;
+    }
 
     public void SetNumber(int number)
     {
+        // Clear previous digits
+        foreach (var digit in digits)
+        {
+            Destroy(digit);
+        }
+        digits.Clear();
+
         // Convert the number to a string to process each digit
         string numberString = number.ToString();
-
-        // Ensure the numberImages array has enough elements to display the number
-        if (numberString.Length > numberImages.Length)
-        {
-            Debug.LogWarning("Not enough image components to display the number!");
-            return;
-        }
 
         // Loop through each digit in the number string
         for (int i = 0; i < numberString.Length; i++)
         {
             // Get the numeric value of the current digit
-            int digit = int.Parse(numberString[i].ToString());
+            int digitValue = int.Parse(numberString[i].ToString());
 
-            // Set the corresponding sprite
-            numberImages[i].sprite = numberSprites[digit];
+            // Instantiate a new digit prefab
+            GameObject digitObject = Instantiate(digitPrefab, transform);
 
-            // Enable the image component (in case it was disabled)
-            numberImages[i].enabled = true;
-        }
+            // Set the sprite of the digit
+            SpriteRenderer spriteRenderer = digitObject.GetComponent<SpriteRenderer>();
+            spriteRenderer.sprite = numberSprites[digitValue];
 
-        // Disable any extra image components
-        for (int i = numberString.Length; i < numberImages.Length; i++)
-        {
-            numberImages[i].enabled = false;
+            // Position the digit based on its index
+            digitObject.transform.localPosition = new Vector3(i * spacing, 0, 0);
+
+            // Add the digit to the list for future clearing
+            digits.Add(digitObject);
         }
     }
 }
