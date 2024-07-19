@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     public float maxSpeed = 150f;
     public float defaultSpeed = 40f;
 
+    public bool isFacingRight;
     public bool isFacingLeft;
 
     private void Awake()
@@ -27,10 +28,10 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        isFacingLeft = true;
+        isFacingLeft = false;
+        isFacingRight = false;
         rb = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
-        _animator.SetBool("isFacingLeft", isFacingLeft);
     }
 
     // Update is called once per frame
@@ -60,12 +61,39 @@ public class PlayerMovement : MonoBehaviour
 
 
         //do the face switching
-        if(Input.GetKeyDown(KeyCode.Mouse0))
+        //if(Input.GetKeyDown(KeyCode.Mouse0))
+        //{
+        //    isFacingLeft = !isFacingLeft;
+        //    //do animations
+        //    _animator.SetBool("isFacingLeft", isFacingLeft);
+        //    Debug.Log("currently facing left: " + isFacingLeft);
+        //}
+
+        if(Input.GetKey(KeyCode.LeftArrow))
         {
-            isFacingLeft = !isFacingLeft;
-            //do animations
+            isFacingLeft = true;
+            Debug.Log("facing left");
+            //do animation
             _animator.SetBool("isFacingLeft", isFacingLeft);
-            Debug.Log("currently facing left: " + isFacingLeft);
+        } else if(Input.GetKeyUp(KeyCode.LeftArrow))
+        {
+            isFacingLeft = false;
+            _animator.SetBool("isFacingLeft", isFacingLeft);
+            Debug.Log("not facing left");
+        }
+
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            isFacingRight = true;
+            Debug.Log("facing right");
+            //do animation
+            _animator.SetBool("isFacingRight", isFacingRight);
+        }
+        else if (Input.GetKeyUp(KeyCode.RightArrow))
+        {
+            isFacingRight = false;
+            _animator.SetBool("isFacingRight", isFacingRight);
+            Debug.Log("not facing left");
         }
 
     }

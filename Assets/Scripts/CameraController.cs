@@ -24,14 +24,32 @@ public class CameraController : MonoBehaviour
 
         if (transform.position.y <= playerYPos)
         {
-            Vector2 rayDirection = PlayerMovement.instance.isFacingLeft ? Vector2.left : Vector2.right;
-            RaycastHit2D hit = Physics2D.Raycast(player.position, rayDirection, Mathf.Infinity, cameraLayer);
-            if (hit.collider != null && hit.collider.gameObject == gameObject)
+            Vector2 rayDirection;
+            if(PlayerMovement.instance.isFacingLeft)
             {
-                //player loses, show game over screen
-                gameController.checkHighScore();
-                uiController.GameOver();
+                rayDirection = Vector2.left;
+                RayCastCheck(rayDirection);
+
+            } else if(PlayerMovement.instance.isFacingRight)
+            {
+                rayDirection = Vector2.right;
+                RayCastCheck(rayDirection);
+            } else
+            {
+                RayCastCheck(Vector2.left);
+                RayCastCheck(Vector2.right);
             }
+        }
+    }
+
+    private void RayCastCheck(Vector2 rayDirection)
+    {
+        RaycastHit2D hit = Physics2D.Raycast(player.position, rayDirection, Mathf.Infinity, cameraLayer);
+        if (hit.collider != null && hit.collider.gameObject == gameObject)
+        {
+            //player loses, show game over screen
+            gameController.checkHighScore();
+            uiController.GameOver();
         }
     }
 
