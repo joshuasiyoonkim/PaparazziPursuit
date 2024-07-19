@@ -5,6 +5,7 @@ using TMPro;
 
 public class GameController : MonoBehaviour {
     public static GameController instance;
+    public NumberFont numberFont;
     public static bool isCameraShown = false;
     public static float speed;
 
@@ -47,6 +48,7 @@ public class GameController : MonoBehaviour {
         StartCoroutine("ObstacleSpawnTimer");
         isCameraShown = false;
         score = 0f;
+        UpdateDisplay();
         highScore = PlayerPrefs.GetFloat("HighScore", 0f);
     }
 
@@ -76,7 +78,15 @@ public class GameController : MonoBehaviour {
 
     void UpdateDisplay()
     {
-        textScore.text = Mathf.FloorToInt(score).ToString();
+        if (numberFont != null)
+        {
+            numberFont.SetNumber(Mathf.FloorToInt(score));
+        }
+        else
+        {
+            Debug.LogError("NumberFont reference is not set in the GameManager script.");
+        }
+        //textScore.text = Mathf.FloorToInt(score).ToString();
     }
 
     void SpawnObstacle() {
