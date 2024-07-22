@@ -12,6 +12,8 @@ public class ScrollingBackground : MonoBehaviour
     private Material mat;
     private float timeElapsed;
 
+    public static float currentScrollSpeed; // Public static variable to expose the scroll speed
+
     private void Start()
     {
         mat = GetComponent<Renderer>().material;
@@ -27,8 +29,10 @@ public class ScrollingBackground : MonoBehaviour
         float increaseScrollSpeed = minScrollSpeed + ((maxScrollSpeed - minScrollSpeed) / delay * timeElapsed);
         scrollSpeed = Mathf.Clamp(increaseScrollSpeed, minScrollSpeed, maxScrollSpeed); // Adjusted clamp range
 
+        currentScrollSpeed = scrollSpeed; // Update the static variable
+
         // Adjust offset for upward scrolling
-        offset -= Time.deltaTime * scrollSpeed / 5f;
+        offset += Time.deltaTime * Mathf.Abs(scrollSpeed) / 6f; // Adjusted to slow down the scrolling speed
         mat.SetTextureOffset("_MainTex", new Vector2(0, offset));
     }
 }

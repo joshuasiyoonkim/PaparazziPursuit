@@ -195,3 +195,5 @@ MonoBehaviour:
   maxScale: 1
   topScreenY: 10
   bottomScreenY: -10
+  speedMultiplier: 1.5
+  startDelay: 3
