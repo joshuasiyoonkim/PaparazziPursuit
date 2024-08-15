@@ -38,8 +38,15 @@ public class GameController : MonoBehaviour {
 
     private float highScore = 0f;
 
+    public GameObject papAnim1;
+    public GameObject papAnim2;
+    private papscript papScript1;
+    private papscript papScript2;
+
     void Awake() {
         instance = this;
+        papScript1 = papAnim1.GetComponent<papscript>();
+        papScript2 = papAnim2.GetComponent<papscript>();
     }
 
     private void Start()
@@ -98,25 +105,46 @@ public class GameController : MonoBehaviour {
         Instantiate(randomObstaclePrefab, randomObstacleSpawnPoint.position, Quaternion.identity);
     }
 
-    void SpawnCamera()
+
+    public void SpawnObstacleInLane(int laneIndex)
     {
-        int randomSpawnIndex = Random.Range(0, cameraSpawnPoints.Length);
-        Transform randomSpawnPoint = cameraSpawnPoints[randomSpawnIndex];
+        Debug.Log("lane index: " + laneIndex);
+        Transform randomSpawnPoint = cameraSpawnPoints[laneIndex];
         GameObject spawnedCamera = Instantiate(cameraPrefab, randomSpawnPoint.position, Quaternion.identity);
 
-        // Assuming you have two spawn points, index 0 is the left side, and index 1 is the right side.
-        if (randomSpawnIndex == 1) // Right side
+        // Rotate the camera based on the lane
+        if (laneIndex == 1) // Right side
         {
-            // Rotate the camera to face left
             spawnedCamera.transform.rotation = Quaternion.Euler(0, 180, 0);
         }
         else // Left side
         {
-            // No need to rotate, as it already looks to the left
             spawnedCamera.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
+
         isCameraShown = false;
     }
+
+
+    private IEnumerator StartAnimationAndSpawnObstacle(int laneIndex)
+    {
+        Debug.Log("start aniimation coroutine started: " + laneIndex);
+        if (laneIndex == 0)
+        {
+            // Start the animation and wait for it to complete
+            yield return StartCoroutine(papScript1.SignalAnimation(laneIndex, "spawnPap"));
+        }
+        else
+        {
+            // Start the animation and wait for it to complete
+            yield return StartCoroutine(papScript2.SignalAnimation(laneIndex, "spawnPap"));
+        }
+
+        // After the animation is complete, spawn the obstacle
+        SpawnObstacleInLane(laneIndex);
+    }
+
+
 
     IEnumerator CameraSpawnTimer()
     {
@@ -126,7 +154,8 @@ public class GameController : MonoBehaviour {
             {
                 isCameraShown = true;
                 yield return new WaitForSeconds(cameraDelay);
-                SpawnCamera();
+                Debug.Log("spawning camera");
+                yield return StartCoroutine(SpawnCamera());
             }
             else
             {
@@ -136,6 +165,15 @@ public class GameController : MonoBehaviour {
             // After spawning, wait for a progressively shorter delay before next spawn
             yield return new WaitForSeconds(Random.Range(minCameraDelay, cameraDelay));
         }
+    }
+
+    IEnumerator SpawnCamera()
+    {
+        Debug.Log("SpawnCamera coroutine started");
+        int randomSpawnIndex = Random.Range(0, cameraSpawnPoints.Length);
+
+        // Start the animation coroutine and wait for it to finish
+        yield return StartCoroutine(StartAnimationAndSpawnObstacle(randomSpawnIndex));
     }
 
     IEnumerator ObstacleSpawnTimer() {

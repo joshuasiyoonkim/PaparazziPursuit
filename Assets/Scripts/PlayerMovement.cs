@@ -72,20 +72,20 @@ public class PlayerMovement : MonoBehaviour
         if(Input.GetKey(KeyCode.LeftArrow))
         {
             isFacingLeft = true;
-            Debug.Log("facing left");
+            //Debug.Log("facing left");
             //do animation
             _animator.SetBool("isFacingLeft", isFacingLeft);
         } else if(Input.GetKeyUp(KeyCode.LeftArrow))
         {
             isFacingLeft = false;
             _animator.SetBool("isFacingLeft", isFacingLeft);
-            Debug.Log("not facing left");
+            //Debug.Log("not facing left");
         }
 
         if (Input.GetKey(KeyCode.RightArrow))
         {
             isFacingRight = true;
-            Debug.Log("facing right");
+            //Debug.Log("facing right");
             //do animation
             _animator.SetBool("isFacingRight", isFacingRight);
         }
@@ -93,7 +93,7 @@ public class PlayerMovement : MonoBehaviour
         {
             isFacingRight = false;
             _animator.SetBool("isFacingRight", isFacingRight);
-            Debug.Log("not facing left");
+            //Debug.Log("not facing left");
         }
 
     }
