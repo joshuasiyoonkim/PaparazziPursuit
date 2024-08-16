@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class GameController : MonoBehaviour {
+public class GameController : MonoBehaviour
+{
     public static GameController instance;
     public NumberFont numberFont;
     public static bool isCameraShown = false;
@@ -38,15 +39,9 @@ public class GameController : MonoBehaviour {
 
     private float highScore = 0f;
 
-    public GameObject papAnim1;
-    public GameObject papAnim2;
-    private papscript papScript1;
-    private papscript papScript2;
-
-    void Awake() {
+    void Awake()
+    {
         instance = this;
-        papScript1 = papAnim1.GetComponent<papscript>();
-        papScript2 = papAnim2.GetComponent<papscript>();
     }
 
     private void Start()
@@ -59,7 +54,8 @@ public class GameController : MonoBehaviour {
         highScore = PlayerPrefs.GetFloat("HighScore", 0f);
     }
 
-    void Update() {
+    void Update()
+    {
         // Increment passage of time for each frame of the game
         timeElapsed += Time.deltaTime;
 
@@ -96,7 +92,8 @@ public class GameController : MonoBehaviour {
         //textScore.text = Mathf.FloorToInt(score).ToString();
     }
 
-    void SpawnObstacle() {
+    void SpawnObstacle()
+    {
         int randomObstacleSpawnIndex = Random.Range(0, obstacleSpawnPoints.Length);
         Transform randomObstacleSpawnPoint = obstacleSpawnPoints[randomObstacleSpawnIndex];
         int randomObstacleIndex = Random.Range(0, obstaclePrefabs.Length);
@@ -105,57 +102,35 @@ public class GameController : MonoBehaviour {
         Instantiate(randomObstaclePrefab, randomObstacleSpawnPoint.position, Quaternion.identity);
     }
 
-
-    public void SpawnObstacleInLane(int laneIndex)
+    void SpawnCamera()
     {
-        Debug.Log("lane index: " + laneIndex);
-        Transform randomSpawnPoint = cameraSpawnPoints[laneIndex];
+        int randomSpawnIndex = Random.Range(0, cameraSpawnPoints.Length);
+        Transform randomSpawnPoint = cameraSpawnPoints[randomSpawnIndex];
         GameObject spawnedCamera = Instantiate(cameraPrefab, randomSpawnPoint.position, Quaternion.identity);
 
-        // Rotate the camera based on the lane
-        if (laneIndex == 1) // Right side
+        // Assuming you have two spawn points, index 0 is the left side, and index 1 is the right side.
+        if (randomSpawnIndex == 1) // Right side
         {
+            // Rotate the camera to face left
             spawnedCamera.transform.rotation = Quaternion.Euler(0, 180, 0);
         }
         else // Left side
         {
+            // No need to rotate, as it already looks to the left
             spawnedCamera.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
-
         isCameraShown = false;
     }
 
-
-    private IEnumerator StartAnimationAndSpawnObstacle(int laneIndex)
-    {
-        Debug.Log("start aniimation coroutine started: " + laneIndex);
-        if (laneIndex == 0)
-        {
-            // Start the animation and wait for it to complete
-            yield return StartCoroutine(papScript1.SignalAnimation(laneIndex, "spawnPap"));
-        }
-        else
-        {
-            // Start the animation and wait for it to complete
-            yield return StartCoroutine(papScript2.SignalAnimation(laneIndex, "spawnPap"));
-        }
-
-        // After the animation is complete, spawn the obstacle
-        SpawnObstacleInLane(laneIndex);
-    }
-
-
-
     IEnumerator CameraSpawnTimer()
     {
-        while(true)
+        while (true)
         {
             if (!isCameraShown)
             {
                 isCameraShown = true;
                 yield return new WaitForSeconds(cameraDelay);
-                Debug.Log("spawning camera");
-                yield return StartCoroutine(SpawnCamera());
+                SpawnCamera();
             }
             else
             {
@@ -167,17 +142,9 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    IEnumerator SpawnCamera()
+    IEnumerator ObstacleSpawnTimer()
     {
-        Debug.Log("SpawnCamera coroutine started");
-        int randomSpawnIndex = Random.Range(0, cameraSpawnPoints.Length);
-
-        // Start the animation coroutine and wait for it to finish
-        yield return StartCoroutine(StartAnimationAndSpawnObstacle(randomSpawnIndex));
-    }
-
-    IEnumerator ObstacleSpawnTimer() {
-        while(true)
+        while (true)
         {
             yield return new WaitForSeconds(Random.Range(minObstacleDelay, obstacleDelay));
             SpawnObstacle();
@@ -193,7 +160,7 @@ public class GameController : MonoBehaviour {
     public void checkHighScore()
     {
         UIController.finalScore = score;
-        if(score > highScore)
+        if (score > highScore)
         {
             PlayerPrefs.SetFloat("HighScore", score);
             PlayerPrefs.Save();
