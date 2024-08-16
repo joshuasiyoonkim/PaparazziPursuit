@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
@@ -8,14 +7,13 @@ public class UIController : MonoBehaviour
 {
     public TMP_Text highScoreText;
 
-    //this is for game over screen
+    // This is for the game over screen
     public TMP_Text scoreText;
 
-    //this is for the game score
+    // This is for the game score
     public TMP_Text gameScore;
 
-
-    //true = started, false = ended
+    // True = started, false = ended
     public static string gameStatus;
     public static float finalScore;
 
@@ -60,7 +58,6 @@ public class UIController : MonoBehaviour
         gameScore.text = Mathf.FloorToInt(GameController.score).ToString();
     }
 
-
     public void StartGame()
     {
         Time.timeScale = 1;
@@ -96,13 +93,12 @@ public class UIController : MonoBehaviour
 
     public void GameOver()
     {
-        scoreText.text = Mathf.FloorToInt(finalScore).ToString();
-        highScoreText.text = Mathf.FloorToInt(PlayerPrefs.GetFloat("HighScore", 0f)).ToString();
+        // Hide the game score UI and show the game over screen, but don't display the score yet
         gameScore.gameObject.SetActive(false);
         gameOverScreen.SetActive(true);
 
         Animator animator = newspaperImage.GetComponent<Animator>();
-        if(animator != null)
+        if (animator != null)
         {
             animator.SetTrigger("ShowNewspaper");
             StartCoroutine(WaitForAnimation(animator, "NewspaperAnimator"));
@@ -111,15 +107,23 @@ public class UIController : MonoBehaviour
 
     private IEnumerator WaitForAnimation(Animator animator, string animationName)
     {
+        // Wait for the animation to start
         while (!animator.GetCurrentAnimatorStateInfo(0).IsName(animationName))
         {
             yield return null;
         }
-        while(animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+
+        // Wait for the animation to complete
+        while (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
         {
             yield return null;
         }
 
+        // Show the score and high score after the animation completes
+        scoreText.text = Mathf.FloorToInt(finalScore).ToString();
+        highScoreText.text = Mathf.FloorToInt(PlayerPrefs.GetFloat("HighScore", 0f)).ToString();
+        
+        // Display UI elements
         uiElements.SetActive(true);
         Time.timeScale = 0;
     }
