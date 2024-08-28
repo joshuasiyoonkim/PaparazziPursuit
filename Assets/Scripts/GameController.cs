@@ -39,6 +39,8 @@ public class GameController : MonoBehaviour
 
     private float highScore = 0f;
 
+    public CameraAnimator cameraAnimator;
+
     void Awake()
     {
         instance = this;
@@ -102,14 +104,13 @@ public class GameController : MonoBehaviour
         Instantiate(randomObstaclePrefab, randomObstacleSpawnPoint.position, Quaternion.identity);
     }
 
-    void SpawnCamera()
+    public void SpawnCamera(int randomIndex)
     {
-        int randomSpawnIndex = Random.Range(0, cameraSpawnPoints.Length);
-        Transform randomSpawnPoint = cameraSpawnPoints[randomSpawnIndex];
+        Transform randomSpawnPoint = cameraSpawnPoints[randomIndex];
         GameObject spawnedCamera = Instantiate(cameraPrefab, randomSpawnPoint.position, Quaternion.identity);
 
         // Assuming you have two spawn points, index 0 is the left side, and index 1 is the right side.
-        if (randomSpawnIndex == 1) // Right side
+        if (randomIndex == 1) // Right side
         {
             // Rotate the camera to face left
             spawnedCamera.transform.rotation = Quaternion.Euler(0, 180, 0);
@@ -130,7 +131,8 @@ public class GameController : MonoBehaviour
             {
                 isCameraShown = true;
                 yield return new WaitForSeconds(cameraDelay);
-                SpawnCamera();
+                yield return StartCoroutine(cameraAnimator.PlayAnimation());
+                Debug.Log("animation finished yay");
             }
             else
             {
