@@ -1870,6 +1870,7 @@ GameObject:
   - component: {fileID: 755169657}
   - component: {fileID: 755169656}
   - component: {fileID: 755169655}
+  - component: {fileID: 755169658}
   m_Layer: 0
   m_Name: PapSignal (1)
   m_TagString: Untagged
@@ -1965,6 +1966,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &755169658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 755169654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbda635a0686442c6a799ee62e889328, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &830502020
 GameObject:
   m_ObjectHideFlags: 0
@@ -4203,6 +4216,7 @@ GameObject:
   - component: {fileID: 1961987484}
   - component: {fileID: 1961987482}
   - component: {fileID: 1961987485}
+  - component: {fileID: 1961987486}
   m_Layer: 0
   m_Name: PapSignal
   m_TagString: Untagged
@@ -4298,6 +4312,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1961987486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1961987481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbda635a0686442c6a799ee62e889328, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2104383992
 GameObject:
   m_ObjectHideFlags: 0
