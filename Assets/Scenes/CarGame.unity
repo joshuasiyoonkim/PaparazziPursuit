@@ -1978,6 +1978,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbda635a0686442c6a799ee62e889328, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 755169655}
+  animationName: PapAnim
+  maxLoops: 3
 --- !u!1 &830502020
 GameObject:
   m_ObjectHideFlags: 0
@@ -4324,6 +4327,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbda635a0686442c6a799ee62e889328, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 1961987485}
+  animationName: PapAnim
+  maxLoops: 3
 --- !u!1 &2104383992
 GameObject:
   m_ObjectHideFlags: 0
