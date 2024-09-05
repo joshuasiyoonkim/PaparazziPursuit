@@ -5,6 +5,8 @@ using TMPro;
 
 public class UIController : MonoBehaviour
 {
+    public AudioController audioControllerScript;
+
     public TMP_Text highScoreText;
 
     // This is for the game over screen
@@ -28,6 +30,7 @@ public class UIController : MonoBehaviour
     {
         if (gameStatus == "Restart")
         {
+            audioControllerScript.PlayAudio();
             startScreen.SetActive(false);
             pauseScreen.SetActive(false);
             gameOverScreen.SetActive(false);
@@ -37,6 +40,7 @@ public class UIController : MonoBehaviour
         }
         else
         {
+            gameStatus = "StartScreen";
             startScreen.SetActive(true);
             pauseScreen.SetActive(false);
             gameOverScreen.SetActive(false);
@@ -55,11 +59,21 @@ public class UIController : MonoBehaviour
             }
         }
 
+        //if (gameStatus == "Playing")
+        //{
+        //    audioControllerScript.PlayAudio();
+        //}
+        //else
+        //{
+        //    audioControllerScript.StopAudio();
+        //}
+
         gameScore.text = Mathf.FloorToInt(GameController.score).ToString();
     }
 
     public void StartGame()
     {
+        audioControllerScript.PlayAudio();
         Time.timeScale = 1;
         startScreen.SetActive(false);
         gameStatus = "Playing";
@@ -67,6 +81,7 @@ public class UIController : MonoBehaviour
 
     public void PauseGame()
     {
+        audioControllerScript.StopAudio();
         Time.timeScale = 0;
         pauseScreen.SetActive(true);
         gameStatus = "Pause";
@@ -74,6 +89,7 @@ public class UIController : MonoBehaviour
 
     public void ResumeGame()
     {
+        audioControllerScript.PlayAudio();
         Time.timeScale = 1;
         pauseScreen.SetActive(false);
         gameStatus = "Playing";
@@ -93,6 +109,7 @@ public class UIController : MonoBehaviour
 
     public void GameOver()
     {
+        audioControllerScript.StopAudio();
         // Hide the game score UI and show the game over screen, but don't display the score yet
         gameScore.gameObject.SetActive(false);
         gameOverScreen.SetActive(true);

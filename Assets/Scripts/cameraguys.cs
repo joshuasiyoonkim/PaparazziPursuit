@@ -48,7 +48,8 @@ public class cameraguys : MonoBehaviour
             }
 
             // Move the camera down the screen at a slower speed based on the speed multiplier
-            _rb.velocity = Vector2.down * Mathf.Abs(ScrollingBackground.currentScrollSpeed) * speedMultiplier;
+            //_rb.velocity = Vector2.down * Mathf.Abs(ScrollingBackground.currentScrollSpeed) * speedMultiplier;
+            _rb.velocity = Vector2.down * Mathf.Abs(TilemapScroller.currentScrollSpeed) * speedMultiplier;
 
             // Calculate the normalized position of the object between the top and bottom of the screen
             float normalizedPosition = Mathf.InverseLerp(topScreenY, bottomScreenY, transform.position.y);
