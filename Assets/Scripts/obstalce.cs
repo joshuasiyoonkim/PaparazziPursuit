@@ -12,7 +12,7 @@ public class Obstacle : MonoBehaviour
     private SpriteRenderer spriteRenderer;
 
     // Scaling variables
-    public float initialScale = 0.5f; // Initial scale when the obstacle spawns
+    public float initialScale = 1.5f; // Initial scale when the obstacle spawns
     public float minScale = 0.5f; // Minimum scale at the top of the screen
     public float maxScale = 1.5f; // Maximum scale at the bottom of the screen
     public float topScreenY = 10f; // Y position representing the top of the screen
