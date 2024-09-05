@@ -110,7 +110,7 @@ public class GameController : MonoBehaviour
         GameObject spawnedCamera = Instantiate(cameraPrefab, randomSpawnPoint.position, Quaternion.identity);
 
         // Assuming you have two spawn points, index 0 is the left side, and index 1 is the right side.
-        if (randomIndex == 0) // Right side
+        if (randomIndex == 1) // Right side
         {
             // Rotate the camera to face left
             spawnedCamera.transform.rotation = Quaternion.Euler(0, 180, 0);

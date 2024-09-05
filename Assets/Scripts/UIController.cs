@@ -30,7 +30,7 @@ public class UIController : MonoBehaviour
     {
         if (gameStatus == "Restart")
         {
-            audioControllerScript.PlayAudio();
+            //audioControllerScript.PlayAudio();
             startScreen.SetActive(false);
             pauseScreen.SetActive(false);
             gameOverScreen.SetActive(false);

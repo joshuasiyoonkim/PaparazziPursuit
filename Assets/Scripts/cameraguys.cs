@@ -19,7 +19,7 @@ public class cameraguys : MonoBehaviour
     public float speedMultiplier = 0.5f; // Adjust this value to slow down the cameraguys
 
     // Delay control
-    public float startDelay = 3f; // Time in seconds before the cameraguys start moving
+    public float startDelay = 1f; // Time in seconds before the cameraguys start moving
     private float timeElapsed = 0f;
 
     // Methods
